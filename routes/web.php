@@ -1,37 +1,17 @@
+
 <?php
 
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/a-propos', [PageController::class, 'about'])->name('about');
+Route::get('/heure', [PageController::class, 'time'])->name('time');
 
-Route::get('/bonjour', function () {
-    return 'Bonjour et bienvenue dans Laravel !';
-});
+Route::get('/posts/archive/{year}', [PostController::class, 'archive'])
+    ->whereNumber('year')
+    ->name('posts.archive');
 
-Route::get('/bonjour-court', function () {
-    return 'Salut !';
-});
-
-Route::get('/bienvenue', function () {
-    return view('bienvenue');
-});
-
-Route::get('/version', function () {
-    return app()->version();
-});
-
-Route::get('/heure', function () {
-    return view('heure', [
-        'date' => now()->format('d/m/Y'),
-        'heure' => now()->format('H:i:s'),
-    ]);
-});
-
-Route::get('/a-propos', function () {
-    return view('a-propos', [
-        'auteur' => 'Rana Ncibi',
-        'groupe' => 'MDW32',
-    ]);
-});
+Route::resource('posts', PostController::class)
+    ->only(['index', 'show', 'create', 'store']);
