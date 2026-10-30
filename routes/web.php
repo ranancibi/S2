@@ -1,10 +1,11 @@
 
 <?php
-
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
+Route::resource('posts', PostController::class);
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/a-propos', [PageController::class, 'about'])->name('about');
 Route::get('/heure', [PageController::class, 'time'])->name('time');
