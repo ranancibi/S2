@@ -28,4 +28,10 @@ class Post extends Model
     {
         $query->where('is_published', true);
     }
+    use App\Models\Post;
+Post::count();
+Post::published()->count();
+Post::published()->latest('published_at')->first()->title;
+Post::published()->toRawSql();
+exit
 }
